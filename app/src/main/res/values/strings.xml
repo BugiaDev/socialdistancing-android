@@ -22,4 +22,8 @@
     <string name="next_tutorial_button">Next</string>
     <string name="start_tutorial_button">Start</string>
     <string name="channel_id_notification_description">Social distance notification channel</string>
+    <string name="high_risk">High Risk</string>
+    <string name="moderate_risk">Moderate Risk</string>
+    <string name="low_risk">Low Risk</string>
+    <string name="recent_contacts">Recent risky contacts</string>
 </resources>

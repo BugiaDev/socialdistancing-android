@@ -27,6 +27,8 @@ import android.app.*
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
+import com.AccentureLiquidStudios.SocialDistance.UnityPlayerActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -114,6 +116,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        btnUnity.setOnClickListener {
+            openUnityAR()
+        }
+
         // Register for broadcasts when a device is discovered.
         //val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
         //registerReceiver(receiver, filter)
@@ -121,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        bluetoothAdapter.bluetoothLeScanner.stopScan(bleListener)
         //unregisterReceiver(receiver)
     }
 
@@ -132,6 +139,11 @@ class MainActivity : AppCompatActivity() {
             }
             else -> requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
         }
+    }
+
+    private fun openUnityAR() {
+        val intent = Intent(this, UnityPlayerActivity::class.java)
+        startActivity(intent)
     }
 
     private fun notifySocialApproach(detectedDeviceName: String) {
@@ -181,7 +193,9 @@ class MainActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     bluetoothAdapter.bluetoothLeScanner.startScan(bleListener)
                     //bluetoothAdapter.startDiscovery() needs to be launched every 12 seconds. See https://developer.android.com/guide/topics/connectivity/bluetooth#DiscoverDevices
-                } else Toast.makeText(this, getString(R.string.location_permission_denied), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, getString(R.string.location_permission_denied), Toast.LENGTH_LONG).show()
+                }
                 return
             }
         }

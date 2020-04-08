@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_aura"
         android:name="com.accenture.socialdistancing.ui.aura.AuraFragment"
-        android:label="@string/title_aura"
+        android:label="@string/recent_contacts"
         tools:layout="@layout/fragment_aura" />
 
     <fragment
